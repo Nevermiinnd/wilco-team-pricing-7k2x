@@ -5,30 +5,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="robots" content="noindex, nofollow" />
 <title>Wilco — Small Team Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  /* ---- Tokens (swap for exact Wilco brand later) ---- */
+  /* ---- Wilco brand tokens (engine/design/brands/rpas-wilco.json) ---- */
   :root {
-    --bg: #0b1220;
-    --surface: #121c30;
-    --surface-2: #1a2740;
-    --line: #2a3a58;
-    --text: #eaf0fb;
-    --muted: #93a3c2;
-    --accent: #3ad1b8;       /* Wilco-ish teal */
-    --accent-2: #4f8cff;
-    --strike: #7d8aa6;
+    --navy: #0F2B4C;
+    --primary: #1A5FAD;
+    --accent: #2B9FE0;
+    --bg: #F7FAFD;
+    --surface: #FFFFFF;
+    --line: rgba(15,43,76,0.10);
+    --muted: rgba(15,43,76,0.62);
+    --strike: rgba(15,43,76,0.40);
     --radius: 18px;
-    --font: -apple-system, "Segoe UI", system-ui, sans-serif;
+    --display: "Montserrat", -apple-system, "Segoe UI", sans-serif;
+    --body: "Inter", -apple-system, "Segoe UI", sans-serif;
   }
 
   * { box-sizing: border-box; margin: 0; }
   body {
-    font-family: var(--font);
+    font-family: var(--body);
+    color: var(--navy);
     background:
-      radial-gradient(900px 500px at 80% -10%, rgba(79,140,255,.18), transparent 60%),
-      radial-gradient(700px 500px at 0% 110%, rgba(58,209,184,.14), transparent 55%),
+      radial-gradient(900px 520px at 85% -12%, rgba(43,159,224,.16), transparent 60%),
+      radial-gradient(720px 520px at -5% 112%, rgba(26,95,173,.10), transparent 55%),
       var(--bg);
-    color: var(--text);
     min-height: 100vh;
     display: grid;
     place-items: center;
@@ -37,117 +40,113 @@
   }
 
   .card {
+    position: relative;
     width: min(720px, 100%);
-    background: linear-gradient(180deg, var(--surface), var(--surface-2));
+    background: var(--surface);
     border: 1px solid var(--line);
     border-radius: var(--radius);
-    box-shadow: 0 30px 80px -30px rgba(0,0,0,.7);
+    box-shadow: 0 24px 60px -28px rgba(15,43,76,.35);
     overflow: hidden;
   }
 
-  .head {
-    padding: 30px 34px 6px;
-  }
+  .logo { position: absolute; top: 24px; right: 28px; height: 26px; width: auto; z-index: 2; }
+
+  .head { padding: 30px 34px 6px; }
   .eyebrow {
+    font-family: var(--body);
     font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
-    color: var(--accent); font-weight: 700;
+    color: var(--accent); font-weight: 600;
   }
-  .head h1 { font-size: 26px; margin-top: 8px; letter-spacing: -.02em; }
-  .head p { color: var(--muted); margin-top: 8px; font-size: 15px; line-height: 1.5; }
+  .head h1 { font-family: var(--display); font-weight: 800; font-size: 27px; margin-top: 10px; letter-spacing: -.02em; color: var(--navy); }
+  .head p { color: var(--muted); margin-top: 10px; font-size: 15px; line-height: 1.55; max-width: 56ch; }
 
   .body { padding: 24px 34px 30px; }
 
   /* ---- Pilot control ---- */
-  .control-row {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 16px; margin-bottom: 14px;
-  }
+  .control-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
   .control-row label { font-size: 15px; font-weight: 600; }
   .stepper { display: flex; align-items: center; gap: 14px; }
   .stepper button {
     width: 38px; height: 38px; border-radius: 11px;
     border: 1px solid var(--line); background: var(--surface);
-    color: var(--text); font-size: 22px; cursor: pointer;
+    color: var(--primary); font-size: 22px; font-weight: 600; cursor: pointer;
     transition: border-color .15s, background .15s, transform .05s;
   }
-  .stepper button:hover { border-color: var(--accent); }
+  .stepper button:hover { border-color: var(--accent); background: rgba(43,159,224,.06); }
   .stepper button:active { transform: scale(.94); }
-  .stepper button:disabled { opacity: .35; cursor: not-allowed; }
-  .stepper .count { font-size: 22px; font-weight: 700; min-width: 28px; text-align: center; }
+  .stepper button:disabled { opacity: .3; cursor: not-allowed; }
+  .stepper .count { font-family: var(--display); font-weight: 800; font-size: 22px; min-width: 34px; text-align: center; }
 
   input[type=range] {
     -webkit-appearance: none; appearance: none;
     width: 100%; height: 6px; border-radius: 999px;
-    background: var(--surface-2); outline: none; margin: 6px 0 4px;
-    border: 1px solid var(--line);
+    background: rgba(15,43,76,.10); outline: none; margin: 6px 0 4px;
   }
   input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none; appearance: none;
     width: 24px; height: 24px; border-radius: 50%;
     background: var(--accent); cursor: grab;
     border: 4px solid var(--surface);
-    box-shadow: 0 0 0 1px var(--accent), 0 4px 10px rgba(0,0,0,.4);
+    box-shadow: 0 0 0 1px var(--accent), 0 3px 8px rgba(15,43,76,.3);
+  }
+  input[type=range]::-moz-range-thumb {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--accent); cursor: grab; border: 4px solid var(--surface);
   }
   .ticks { display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; }
 
   .chips { display: flex; gap: 10px; flex-wrap: wrap; margin: 22px 0 4px; }
   .chip {
     display: flex; align-items: center; gap: 8px;
-    background: var(--surface); border: 1px solid var(--line);
+    background: rgba(43,159,224,.07); border: 1px solid rgba(43,159,224,.22);
     border-radius: 999px; padding: 8px 14px; font-size: 13px; color: var(--muted);
   }
-  .chip b { color: var(--text); }
+  .chip b { color: var(--navy); }
   .chip .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
 
   /* ---- Price ---- */
   .price-block {
     margin-top: 26px; padding: 22px 24px;
-    background: var(--surface); border: 1px solid var(--line);
+    background: linear-gradient(180deg, #fff, #f4f9fe);
+    border: 1px solid rgba(43,159,224,.25);
     border-radius: 14px;
     display: flex; align-items: flex-end; justify-content: space-between; gap: 18px;
   }
   .price-left .was { color: var(--strike); text-decoration: line-through; font-size: 16px; }
-  .price-left .now { font-size: 44px; font-weight: 800; letter-spacing: -.03em; line-height: 1; }
-  .price-left .now span { font-size: 18px; font-weight: 600; color: var(--muted); }
+  .price-left .now { font-family: var(--display); font-weight: 800; font-size: 44px; letter-spacing: -.03em; line-height: 1; color: var(--navy); }
+  .price-left .now span { font-family: var(--body); font-size: 18px; font-weight: 600; color: var(--muted); }
   .price-left .per { color: var(--muted); font-size: 13px; margin-top: 6px; }
   .save {
-    background: rgba(58,209,184,.14); color: var(--accent);
-    border: 1px solid rgba(58,209,184,.4);
-    padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 700;
-    white-space: nowrap;
+    background: rgba(43,159,224,.12); color: var(--primary);
+    border: 1px solid rgba(43,159,224,.4);
+    padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; white-space: nowrap;
   }
 
-  .value {
-    margin-top: 20px; display: grid; gap: 10px;
-  }
+  .value { margin-top: 20px; display: grid; gap: 11px; }
   .value div { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--muted); }
   .value svg { flex: none; margin-top: 1px; }
-  .value b { color: var(--text); font-weight: 600; }
+  .value b { color: var(--navy); font-weight: 600; }
 
-  .cta {
-    margin-top: 24px; display: flex; gap: 12px;
-  }
+  .cta { margin-top: 24px; display: flex; gap: 12px; }
   .btn {
     flex: 1; text-align: center; padding: 15px; border-radius: 12px;
     font-size: 15px; font-weight: 700; cursor: pointer; border: 1px solid transparent;
-    transition: transform .05s, filter .15s;
-    text-decoration: none;
+    transition: transform .05s, filter .15s, border-color .15s; text-decoration: none;
   }
   .btn:active { transform: translateY(1px); }
-  .btn-primary { background: linear-gradient(180deg, var(--accent), #28b59d); color: #06231e; }
+  .btn-primary { background: linear-gradient(180deg, var(--accent), var(--primary)); color: #fff; }
   .btn-primary:hover { filter: brightness(1.06); }
-  .btn-ghost { background: transparent; border-color: var(--line); color: var(--text); }
+  .btn-ghost { background: transparent; border-color: var(--line); color: var(--navy); }
   .btn-ghost:hover { border-color: var(--accent); }
 
   .foot { text-align: center; color: var(--muted); font-size: 12.5px; margin-top: 16px; }
-  .foot a { color: var(--accent); text-decoration: none; }
+  .foot a { color: var(--primary); text-decoration: none; font-weight: 600; }
 
-  /* ---- Contact-us (11+) overlay state ---- */
+  /* ---- Contact-us (11+) state ---- */
   .contact-state { display: none; text-align: center; padding: 8px 0 4px; }
-  .contact-state h2 { font-size: 22px; }
+  .contact-state h2 { font-family: var(--display); font-weight: 800; font-size: 22px; color: var(--navy); }
   .contact-state p { color: var(--muted); margin: 10px 0 22px; font-size: 15px; }
-  body.over-cap .value, body.over-cap .save { display: none; }
-  body.over-cap .price-block { display: none; }
+  body.over-cap .value, body.over-cap .save, body.over-cap .price-block { display: none; }
   body.over-cap .contact-state { display: block; }
   body.over-cap .btn-primary { display: none; }
   body.over-cap .btn-ghost { flex: 1; }
@@ -155,10 +154,11 @@
 </head>
 <body>
   <div class="card">
+    <img class="logo" src="wilco-logo.png" alt="RPAS Wilco" />
     <div class="head">
       <div class="eyebrow">Small Team Plan</div>
       <h1>Build your team plan</h1>
-      <p>Pick how many pilots you have. Admin seats for the people who oversee your program are included free — no extra logins to manage.</p>
+      <p>Pick how many pilots you have. We add admin seats for the people who oversee your program but don't fly — so there are no extra logins to juggle.</p>
     </div>
 
     <div class="body">
@@ -175,7 +175,7 @@
 
       <div class="chips">
         <span class="chip"><span class="dot"></span><b id="pilotChip">5</b>&nbsp;pilot seats</span>
-        <span class="chip"><span class="dot"></span><b id="adminChip">2</b>&nbsp;admin seats <i style="opacity:.7">&nbsp;free</i></span>
+        <span class="chip"><span class="dot"></span><b id="adminChip">2</b>&nbsp;admin seats</span>
       </div>
 
       <div class="price-block">
@@ -193,9 +193,9 @@
       </div>
 
       <div class="value">
-        <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#3ad1b8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Free admin seats</b> for the people who manage the program but don't fly.</span></div>
-        <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#3ad1b8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>One dashboard, one bill</b> — manage every pilot from a single account.</span></div>
-        <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#3ad1b8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Site surveys, airspace, NOTAMs <b>+ live telemetry</b> as it rolls out.</span></div>
+        <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#2B9FE0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Admin seats</b> for the people who manage your program but don't fly.</span></div>
+        <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#2B9FE0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>One dashboard, one bill</b> — manage every pilot from a single account.</span></div>
+        <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#2B9FE0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Site surveys, airspace, NOTAMs <b>+ live telemetry</b> as it rolls out.</span></div>
       </div>
 
       <div class="cta">
@@ -212,7 +212,6 @@
   const range = document.getElementById('range');
   const count = document.getElementById('count');
   const fmt = n => '$' + n.toLocaleString('en-US');
-
   function admins(p){ return Math.floor(p / 2); }
 
   function render(){
@@ -224,7 +223,6 @@
     count.textContent = overCap ? '11+' : pilots;
     document.getElementById('minus').disabled = v <= 2;
     document.getElementById('plus').disabled = v >= 11;
-
     if (overCap) return;
 
     const now = pilots * PRICE;
