@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Wilco — Small Team Plan</title>
+<style>
+  /* ---- Tokens (swap for exact Wilco brand later) ---- */
+  :root {
+    --bg: #0b1220;
+    --surface: #121c30;
+    --surface-2: #1a2740;
+    --line: #2a3a58;
+    --text: #eaf0fb;
+    --muted: #93a3c2;
+    --accent: #3ad1b8;       /* Wilco-ish teal */
+    --accent-2: #4f8cff;
+    --strike: #7d8aa6;
+    --radius: 18px;
+    --font: -apple-system, "Segoe UI", system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    font-family: var(--font);
+    background:
+      radial-gradient(900px 500px at 80% -10%, rgba(79,140,255,.18), transparent 60%),
+      radial-gradient(700px 500px at 0% 110%, rgba(58,209,184,.14), transparent 55%),
+      var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 40px 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .card {
+    width: min(720px, 100%);
+    background: linear-gradient(180deg, var(--surface), var(--surface-2));
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: 0 30px 80px -30px rgba(0,0,0,.7);
+    overflow: hidden;
+  }
+
+  .head {
+    padding: 30px 34px 6px;
+  }
+  .eyebrow {
+    font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--accent); font-weight: 700;
+  }
+  .head h1 { font-size: 26px; margin-top: 8px; letter-spacing: -.02em; }
+  .head p { color: var(--muted); margin-top: 8px; font-size: 15px; line-height: 1.5; }
+
+  .body { padding: 24px 34px 30px; }
+
+  /* ---- Pilot control ---- */
+  .control-row {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; margin-bottom: 14px;
+  }
+  .control-row label { font-size: 15px; font-weight: 600; }
+  .stepper { display: flex; align-items: center; gap: 14px; }
+  .stepper button {
+    width: 38px; height: 38px; border-radius: 11px;
+    border: 1px solid var(--line); background: var(--surface);
+    color: var(--text); font-size: 22px; cursor: pointer;
+    transition: border-color .15s, background .15s, transform .05s;
+  }
+  .stepper button:hover { border-color: var(--accent); }
+  .stepper button:active { transform: scale(.94); }
+  .stepper button:disabled { opacity: .35; cursor: not-allowed; }
+  .stepper .count { font-size: 22px; font-weight: 700; min-width: 28px; text-align: center; }
+
+  input[type=range] {
+    -webkit-appearance: none; appearance: none;
+    width: 100%; height: 6px; border-radius: 999px;
+    background: var(--surface-2); outline: none; margin: 6px 0 4px;
+    border: 1px solid var(--line);
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--accent); cursor: grab;
+    border: 4px solid var(--surface);
+    box-shadow: 0 0 0 1px var(--accent), 0 4px 10px rgba(0,0,0,.4);
+  }
+  .ticks { display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; }
+
+  .chips { display: flex; gap: 10px; flex-wrap: wrap; margin: 22px 0 4px; }
+  .chip {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 999px; padding: 8px 14px; font-size: 13px; color: var(--muted);
+  }
+  .chip b { color: var(--text); }
+  .chip .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+
+  /* ---- Price ---- */
+  .price-block {
+    margin-top: 26px; padding: 22px 24px;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 14px;
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 18px;
+  }
+  .price-left .was { color: var(--strike); text-decoration: line-through; font-size: 16px; }
+  .price-left .now { font-size: 44px; font-weight: 800; letter-spacing: -.03em; line-height: 1; }
+  .price-left .now span { font-size: 18px; font-weight: 600; color: var(--muted); }
+  .price-left .per { color: var(--muted); font-size: 13px; margin-top: 6px; }
+  .save {
+    background: rgba(58,209,184,.14); color: var(--accent);
+    border: 1px solid rgba(58,209,184,.4);
+    padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .value {
+    margin-top: 20px; display: grid; gap: 10px;
+  }
+  .value div { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--muted); }
+  .value svg { flex: none; margin-top: 1px; }
+  .value b { color: var(--text); font-weight: 600; }
+
+  .cta {
+    margin-top: 24px; display: flex; gap: 12px;
+  }
+  .btn {
+    flex: 1; text-align: center; padding: 15px; border-radius: 12px;
+    font-size: 15px; font-weight: 700; cursor: pointer; border: 1px solid transparent;
+    transition: transform .05s, filter .15s;
+    text-decoration: none;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn-primary { background: linear-gradient(180deg, var(--accent), #28b59d); color: #06231e; }
+  .btn-primary:hover { filter: brightness(1.06); }
+  .btn-ghost { background: transparent; border-color: var(--line); color: var(--text); }
+  .btn-ghost:hover { border-color: var(--accent); }
+
+  .foot { text-align: center; color: var(--muted); font-size: 12.5px; margin-top: 16px; }
+  .foot a { color: var(--accent); text-decoration: none; }
+
+  /* ---- Contact-us (11+) overlay state ---- */
+  .contact-state { display: none; text-align: center; padding: 8px 0 4px; }
+  .contact-state h2 { font-size: 22px; }
+  .contact-state p { color: var(--muted); margin: 10px 0 22px; font-size: 15px; }
+  body.over-cap .value, body.over-cap .save { display: none; }
+  body.over-cap .price-block { display: none; }
+  body.over-cap .contact-state { display: block; }
+  body.over-cap .btn-primary { display: none; }
+  body.over-cap .btn-ghost { flex: 1; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="head">
+      <div class="eyebrow">Small Team Plan</div>
+      <h1>Build your team plan</h1>
+      <p>Pick how many pilots you have. Admin seats for the people who oversee your program are included free — no extra logins to manage.</p>
+    </div>
+
+    <div class="body">
+      <div class="control-row">
+        <label for="range">Pilots</label>
+        <div class="stepper">
+          <button id="minus" aria-label="Remove pilot">−</button>
+          <span class="count" id="count">5</span>
+          <button id="plus" aria-label="Add pilot">+</button>
+        </div>
+      </div>
+      <input type="range" id="range" min="2" max="11" step="1" value="5" />
+      <div class="ticks"><span>2</span><span>10</span><span>11+</span></div>
+
+      <div class="chips">
+        <span class="chip"><span class="dot"></span><b id="pilotChip">5</b>&nbsp;pilot seats</span>
+        <span class="chip"><span class="dot"></span><b id="adminChip">2</b>&nbsp;admin seats <i style="opacity:.7">&nbsp;free</i></span>
+      </div>
+
+      <div class="price-block">
+        <div class="price-left">
+          <div class="was" id="was">$1,495 / yr</div>
+          <div class="now" id="now">$995<span> / yr</span></div>
+          <div class="per">Billed annually · <span id="perSeat">$199</span> per pilot seat</div>
+        </div>
+        <div class="save" id="save">Save $500</div>
+      </div>
+
+      <div class="contact-state">
+        <h2>Running a bigger fleet?</h2>
+        <p>Teams over 10 pilots get custom pricing and onboarding. Let's build the right plan with you.</p>
+      </div>
+
+      <div class="value">
+        <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#3ad1b8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Free admin seats</b> for the people who manage the program but don't fly.</span></div>
+        <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#3ad1b8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>One dashboard, one bill</b> — manage every pilot from a single account.</span></div>
+        <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#3ad1b8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Site surveys, airspace, NOTAMs <b>+ live telemetry</b> as it rolls out.</span></div>
+      </div>
+
+      <div class="cta">
+        <a class="btn btn-primary" id="buy" href="#">Get this plan</a>
+        <a class="btn btn-ghost" href="#">Contact us</a>
+      </div>
+
+      <div class="foot">Not sure what you need? <a href="#">Talk to us about a trial.</a></div>
+    </div>
+  </div>
+
+<script>
+  const PRICE = 199, OLD = 299;
+  const range = document.getElementById('range');
+  const count = document.getElementById('count');
+  const fmt = n => '$' + n.toLocaleString('en-US');
+
+  function admins(p){ return Math.floor(p / 2); }
+
+  function render(){
+    const v = +range.value;
+    const overCap = v >= 11;
+    document.body.classList.toggle('over-cap', overCap);
+
+    const pilots = overCap ? 11 : v;
+    count.textContent = overCap ? '11+' : pilots;
+    document.getElementById('minus').disabled = v <= 2;
+    document.getElementById('plus').disabled = v >= 11;
+
+    if (overCap) return;
+
+    const now = pilots * PRICE;
+    const was = pilots * OLD;
+    document.getElementById('pilotChip').textContent = pilots;
+    document.getElementById('adminChip').textContent = admins(pilots);
+    document.getElementById('was').textContent = fmt(was) + ' / yr';
+    document.getElementById('now').innerHTML = fmt(now) + '<span> / yr</span>';
+    document.getElementById('save').textContent = 'Save ' + fmt(was - now);
+    document.getElementById('buy').textContent = 'Get ' + pilots + '-pilot plan';
+  }
+
+  document.getElementById('minus').onclick = () => { range.value = Math.max(2, +range.value - 1); render(); };
+  document.getElementById('plus').onclick  = () => { range.value = Math.min(11, +range.value + 1); render(); };
+  range.oninput = render;
+  render();
+</script>
+</body>
+</html>
