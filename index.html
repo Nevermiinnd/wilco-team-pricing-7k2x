@@ -122,7 +122,8 @@
     padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; white-space: nowrap;
   }
 
-  .value { margin-top: 20px; display: grid; gap: 11px; }
+  .value { margin-top: 22px; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); column-gap: 22px; row-gap: 12px; }
+  @media (max-width: 540px) { .value { grid-template-columns: 1fr; } }
   .value div { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--muted); }
   .value svg { flex: none; margin-top: 1px; }
   .value b { color: var(--navy); font-weight: 600; }
@@ -158,7 +159,7 @@
     <div class="head">
       <div class="eyebrow">Small Team Plan</div>
       <h1>Build your team plan</h1>
-      <p>Pick how many pilots you have. We add admin seats for the people who oversee your program but don't fly — so there are no extra logins to juggle.</p>
+      <p>How many flying pilots do you have? Admin seats for the people who oversee your program are included.</p>
     </div>
 
     <div class="body">
@@ -193,9 +194,14 @@
       </div>
 
       <div class="value">
-        <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#2B9FE0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Admin seats</b> for the people who manage your program but don't fly.</span></div>
-        <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#2B9FE0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>One dashboard, one bill</b> — manage every pilot from a single account.</span></div>
-        <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#2B9FE0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Site surveys, airspace, NOTAMs <b>+ live telemetry</b> as it rolls out.</span></div>
+        <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#2B9FE0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Everything in Pro</b></span></div>
+        <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#2B9FE0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Team management</span></div>
+        <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#2B9FE0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Role-based access control</span></div>
+        <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#2B9FE0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Operations dashboard</span></div>
+        <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#2B9FE0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Custom reporting</span></div>
+        <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#2B9FE0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>API access</span></div>
+        <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#2B9FE0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Dedicated account manager</span></div>
+        <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#2B9FE0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Volume discounts available</span></div>
       </div>
 
       <div class="cta">
