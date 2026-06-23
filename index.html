@@ -18,7 +18,7 @@
     --surface: #FFFFFF;
     --line: rgba(15,43,76,0.10);
     --muted: rgba(15,43,76,0.62);
-    --strike: rgba(15,43,76,0.40);
+    --faint: rgba(15,43,76,0.48);
     --radius: 18px;
     --display: "Montserrat", -apple-system, "Segoe UI", sans-serif;
     --body: "Inter", -apple-system, "Segoe UI", sans-serif;
@@ -57,7 +57,7 @@
     font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
     color: var(--accent); font-weight: 600;
   }
-  .head h1 { font-family: var(--display); font-weight: 800; font-size: 27px; margin-top: 10px; letter-spacing: -.02em; color: var(--navy); }
+  .head h1 { font-family: var(--display); font-weight: 800; font-size: 27px; margin-top: 10px; letter-spacing: -.02em; color: var(--navy); max-width: 18ch; }
   .head p { color: var(--muted); margin-top: 10px; font-size: 15px; line-height: 1.55; max-width: 56ch; }
 
   .body { padding: 24px 34px 30px; }
@@ -95,34 +95,23 @@
   }
   .ticks { display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; }
 
-  .chips { display: flex; gap: 10px; flex-wrap: wrap; margin: 22px 0 4px; }
-  .chip {
-    display: flex; align-items: center; gap: 8px;
-    background: rgba(43,159,224,.07); border: 1px solid rgba(43,159,224,.22);
-    border-radius: 999px; padding: 8px 14px; font-size: 13px; color: var(--muted);
-  }
-  .chip b { color: var(--navy); }
-  .chip .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
-
   /* ---- Price ---- */
   .price-block {
-    margin-top: 26px; padding: 22px 24px;
+    margin-top: 24px; padding: 22px 24px;
     background: linear-gradient(180deg, #fff, #f4f9fe);
     border: 1px solid rgba(43,159,224,.25);
     border-radius: 14px;
-    display: flex; align-items: flex-end; justify-content: space-between; gap: 18px;
   }
-  .price-left .was { color: var(--strike); text-decoration: line-through; font-size: 16px; }
-  .price-left .now { font-family: var(--display); font-weight: 800; font-size: 44px; letter-spacing: -.03em; line-height: 1; color: var(--navy); }
-  .price-left .now span { font-family: var(--body); font-size: 18px; font-weight: 600; color: var(--muted); }
-  .price-left .per { color: var(--muted); font-size: 13px; margin-top: 6px; }
-  .save {
-    background: rgba(43,159,224,.12); color: var(--primary);
-    border: 1px solid rgba(43,159,224,.4);
-    padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; white-space: nowrap;
-  }
+  .price-block .now { font-family: var(--display); font-weight: 800; font-size: 46px; letter-spacing: -.03em; line-height: 1; color: var(--navy); }
+  .price-block .now span { font-family: var(--body); font-size: 18px; font-weight: 600; color: var(--muted); }
+  .price-block .for { color: var(--primary); font-size: 14px; font-weight: 600; margin-top: 8px; }
 
-  .value { margin-top: 22px; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); column-gap: 22px; row-gap: 12px; }
+  .clarifier { margin-top: 12px; font-size: 12.5px; line-height: 1.55; color: var(--faint); }
+  .clarifier b { color: var(--muted); font-weight: 600; }
+
+  /* ---- Includes ---- */
+  .feat-cap { margin-top: 22px; font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--primary); font-weight: 600; }
+  .value { margin-top: 12px; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); column-gap: 22px; row-gap: 12px; }
   @media (max-width: 540px) { .value { grid-template-columns: 1fr; } }
   .value div { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--muted); }
   .value svg { flex: none; margin-top: 1px; }
@@ -147,7 +136,7 @@
   .contact-state { display: none; text-align: center; padding: 8px 0 4px; }
   .contact-state h2 { font-family: var(--display); font-weight: 800; font-size: 22px; color: var(--navy); }
   .contact-state p { color: var(--muted); margin: 10px 0 22px; font-size: 15px; }
-  body.over-cap .value, body.over-cap .save, body.over-cap .price-block { display: none; }
+  body.over-cap .value, body.over-cap .feat-cap, body.over-cap .price-block, body.over-cap .clarifier { display: none; }
   body.over-cap .contact-state { display: block; }
   body.over-cap .btn-primary { display: none; }
   body.over-cap .btn-ghost { flex: 1; }
@@ -158,8 +147,8 @@
     <img class="logo" src="wilco-logo.png" alt="RPAS Wilco" />
     <div class="head">
       <div class="eyebrow">Small Team Plan</div>
-      <h1>Build your team plan</h1>
-      <p>How many flying pilots do you have? Admin seats for the people who oversee your program are included.</p>
+      <h1>How many flying pilots do you have?</h1>
+      <p>You're billed per active pilot using Wilco — not per drone. Slide to size your team.</p>
     </div>
 
     <div class="body">
@@ -167,32 +156,29 @@
         <label for="range">Pilots</label>
         <div class="stepper">
           <button id="minus" aria-label="Remove pilot">−</button>
-          <span class="count" id="count">5</span>
+          <span class="count" id="count">2</span>
           <button id="plus" aria-label="Add pilot">+</button>
         </div>
       </div>
-      <input type="range" id="range" min="2" max="11" step="1" value="5" />
+      <input type="range" id="range" min="2" max="11" step="1" value="2" />
       <div class="ticks"><span>2</span><span>10</span><span>11+</span></div>
 
-      <div class="chips">
-        <span class="chip"><span class="dot"></span><b id="pilotChip">5</b>&nbsp;pilot seats</span>
-        <span class="chip"><span class="dot"></span><b id="adminChip">2</b>&nbsp;admin seats</span>
+      <div class="price-block">
+        <div class="now" id="now">$598<span> / yr</span></div>
+        <div class="for" id="for">for 2 pilot seats</div>
       </div>
 
-      <div class="price-block">
-        <div class="price-left">
-          <div class="was" id="was">$1,495 / yr</div>
-          <div class="now" id="now">$995<span> / yr</span></div>
-          <div class="per">Billed annually · <span id="perSeat">$199</span> per pilot seat</div>
-        </div>
-        <div class="save" id="save">Save $500</div>
-      </div>
+      <p class="clarifier">
+        <b>A pilot seat = one active pilot using Wilco, with their own login.</b>
+        Pricing is per pilot, not per drone — fly as many aircraft as you like on each seat.
+      </p>
 
       <div class="contact-state">
         <h2>Running a bigger fleet?</h2>
         <p>Teams over 10 pilots get custom pricing and onboarding. Let's build the right plan with you.</p>
       </div>
 
+      <div class="feat-cap">Per active pilot — each with their own login</div>
       <div class="value">
         <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#2B9FE0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Everything in Pro</b></span></div>
         <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#2B9FE0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Team management</span></div>
@@ -214,11 +200,11 @@
   </div>
 
 <script>
-  const PRICE = 199, OLD = 299;
+  const BASE = 598;        // first 2 pilot seats
+  const ADDITIONAL = 200;  // each pilot seat beyond 2
   const range = document.getElementById('range');
   const count = document.getElementById('count');
   const fmt = n => '$' + n.toLocaleString('en-US');
-  function admins(p){ return Math.floor(p / 2); }
 
   function render(){
     const v = +range.value;
@@ -231,13 +217,9 @@
     document.getElementById('plus').disabled = v >= 11;
     if (overCap) return;
 
-    const now = pilots * PRICE;
-    const was = pilots * OLD;
-    document.getElementById('pilotChip').textContent = pilots;
-    document.getElementById('adminChip').textContent = admins(pilots);
-    document.getElementById('was').textContent = fmt(was) + ' / yr';
-    document.getElementById('now').innerHTML = fmt(now) + '<span> / yr</span>';
-    document.getElementById('save').textContent = 'Save ' + fmt(was - now);
+    const total = BASE + (pilots - 2) * ADDITIONAL;
+    document.getElementById('now').innerHTML = fmt(total) + '<span> / yr</span>';
+    document.getElementById('for').textContent = 'for ' + pilots + ' pilot seats';
     document.getElementById('buy').textContent = 'Get ' + pilots + '-pilot plan';
   }
 
