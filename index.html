@@ -94,6 +94,10 @@
     background: var(--accent); cursor: grab; border: 4px solid var(--surface);
   }
   .ticks { display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; }
+  .ticks span { width: 22px; text-align: center; transition: color .12s, font-weight .12s; }
+  .ticks span:first-child { text-align: left; }
+  .ticks span:last-child { text-align: right; width: auto; }
+  .ticks span.active { color: var(--navy); font-weight: 700; }
 
   /* ---- Price ---- */
   .price-block {
@@ -161,7 +165,7 @@
         </div>
       </div>
       <input type="range" id="range" min="2" max="11" step="1" value="2" />
-      <div class="ticks"><span>2</span><span>10</span><span>11+</span></div>
+      <div class="ticks"><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11+</span></div>
 
       <div class="price-block">
         <div class="now" id="now">$598<span> / yr</span></div>
@@ -204,6 +208,7 @@
   const ADDITIONAL = 200;  // each pilot seat beyond 2
   const range = document.getElementById('range');
   const count = document.getElementById('count');
+  const tickEls = document.querySelectorAll('.ticks span');
   const fmt = n => '$' + n.toLocaleString('en-US');
 
   function render(){
@@ -215,6 +220,7 @@
     count.textContent = overCap ? '11+' : pilots;
     document.getElementById('minus').disabled = v <= 2;
     document.getElementById('plus').disabled = v >= 11;
+    tickEls.forEach((el, i) => el.classList.toggle('active', i === v - 2));
     if (overCap) return;
 
     const total = BASE + (pilots - 2) * ADDITIONAL;
